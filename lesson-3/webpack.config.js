@@ -1,8 +1,9 @@
+const webpack = require('webpack')
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-    entry: path.resolve(__dirname, 'src/index.tsx'),
+    entry: path.resolve(__dirname, './src/index.tsx'),
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
@@ -26,20 +27,6 @@ const config = {
                 test: /\.ts(x)?$/,
                 loader: 'ts-loader',
                 exclude: /node_modules/
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
-                            modules: true
-                        }
-                    }
-                ],
-                include: /\.module\.css$/
             },
             {
                 test: /\.scss$/,
@@ -100,7 +87,7 @@ const config = {
         proxy: {
             '/api/': {
                 context: () => true,
-                target: 'http://[::1]:3000',
+                target: 'http://[::1]:8000',
                 secure: false,
                 changeOrigin: true,
                 headers: {
@@ -117,7 +104,12 @@ const config = {
         new HTMLWebpackPlugin({
             template: path.resolve(__dirname, 'src/index.html'),
         }),
-    ]
+        new webpack.DefinePlugin({
+            "process.env": "{}",
+            global: {}
+        })
+    ],
+    devtool: 'source-map',
 };
 
 module.exports = config;

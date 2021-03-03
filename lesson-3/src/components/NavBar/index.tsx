@@ -21,8 +21,11 @@ const NavBar: React.FC<IProps> = (props: IProps) => {
           <Link className={s.appbarLink} to={Routes.USERS}>
             {RoutesNames.USERS}
           </Link>
-          <Link className={s.appbarLink} to={Routes.SCOREBOARD}>
-            {RoutesNames.SCOREBOARD}
+          <Link className={s.appbarLink} to={Routes.NEWS}>
+            {RoutesNames.NEWS}
+          </Link>
+          <Link className={s.appbarLink} to={Routes.COUNTER}>
+            {RoutesNames.COUNTER}
           </Link>
           <Link className={s.appbarLink} to={Routes.CHALLENGES}>
             {RoutesNames.CHALLENGES}
