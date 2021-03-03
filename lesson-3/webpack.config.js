@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
@@ -46,25 +45,40 @@ const config = {
                 test: /\.scss$/,
                 use: [
                     'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
+                    'css-modules-typescript-loader?modules',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                mode: 'local',
+                                localIdentName: '[name]__[local]__[hash:base64:5]',
+                                auto: /\.module\.\w+$/i,
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
             },
             {
                 test: /\.svg$/,
-                use: 'file-loader'
+                use: ['@svgr/webpack', 'url-loader'],
             },
             {
-                test: /\.png$/,
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
                     {
-                        loader: 'url-loader',
+                        loader: 'file-loader',
                         options: {
-                            mimetype: 'image/png'
-                        }
-                    }
-                ]
-            }
+                            name: '[name].[ext]',
+                            outputPath: 'fonts/',
+                        },
+                    },
+                ],
+            },
+            {
+                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+                use: ['url-loader'],
+            },
         ]
     },
     resolve: {

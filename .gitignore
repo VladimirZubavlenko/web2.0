@@ -2,3 +2,5 @@
 .idea
 /lesson-2/docker-data/
 /lesson-3/node_modules
+/lesson-3/src/**.scss.d.ts
+/lesson-3/src/**/**.scss.d.ts
