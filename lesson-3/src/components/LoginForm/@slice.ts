@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchData } from './API'
+import { fetchData } from '../../utils/API'
 
 // Define a type for the slice state
 export interface Form {
@@ -11,7 +11,7 @@ export interface LoginFormState {
   password: string;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
-export  interface Response {
+export interface Response {
   type: string;
   message: {
     token: string;
@@ -26,9 +26,9 @@ const initialState: LoginFormState = {
 
 export const loginUser = createAsyncThunk(
   'login/auth',
-  async (state: Form, thunkAPI) => {
+  async (data: Form, thunkAPI) => {
     const postOptions = {
-      body: JSON.stringify({ username: state.login, password: state.password }),
+      body: JSON.stringify({ username: data.login, password: data.password }),
       method: 'POST',
     };
     const response = await fetchData('/api/login/', postOptions);
